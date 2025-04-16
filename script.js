@@ -20,14 +20,12 @@ function postStudent() {
     obj.status = "Excellent ";
   } else if (obj.notte >= 0 && obj.notte <= 10) {
     obj.status = " Fail";
+  } else {
+    obj.status = "Invalid note entered";
   }
-  else {
-    obj.status = "Invalid note entered"
-  }
-  if (obj.notte === "" || obj.fullName === '' || obj.groupy === "") {
-    alert('You must enter all required fields ');
-  }
-  else {
+  if (obj.notte === "" || obj.fullName === "" || obj.groupy === "") {
+    alert("You must enter all required fields ");
+  } else {
     db_students.push(obj);
   }
   getStudents();
@@ -69,16 +67,16 @@ function getStudents() {
   }
 }
 function updateStudent(index) {
-  document.getElementById("fullName").value = db_students[index].fullName
-  document.getElementById("group").value = db_students[index].groupy
-  document.getElementById("notte").value = db_students[index].notte
-  if(newFullName){
-    db_students[index].fullName = newFullName
+  document.getElementById("submitBtn").innerText = "Update Student";
 
-  }
-getElementById()
+  document.getElementById("fullName").value = db_students[index].fullName;
+  document.getElementById("group").value = db_students[index].groupy;
+  document.getElementById("notte").value = db_students[index].notte;
 
+  // db_students[index].push({ fullName, groupy, notte });
+  getElementById();
 }
-function deleteStudent(index){
-
+function deleteStudent(index) {
+  db_students.splice(index, 1);
+  getStudents();
 }
