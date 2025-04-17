@@ -45,7 +45,7 @@ function getStudents() {
     newTr.innerHTML = `
       <td>${db_students[i].fullName}</td>
       <td>${db_students[i].groupy}</td>
-      <td>${db_students[i].status}</td>
+      <td id='status'>${db_students[i].status}</td>
        <td>
         <button onclick='updateStudent(${i})' style='  background-color: red;
         color: white;
@@ -68,13 +68,46 @@ function getStudents() {
 }
 function updateStudent(index) {
   document.getElementById("submitBtn").innerText = "Update Student";
+  document.getElementById("submitBtn").setAttribute("onclick", `edit(${index})`)
 
+// afficher les valeur du table in  des inputs form
   document.getElementById("fullName").value = db_students[index].fullName;
   document.getElementById("group").value = db_students[index].groupy;
   document.getElementById("notte").value = db_students[index].notte;
 
-  // db_students[index].push({ fullName, groupy, notte });
-  getElementById();
+}
+function edit(index) {
+  let newFullName = document.getElementById("fullName").value
+  let newgroup = document.getElementById("group").value;
+  let newnotte = document.getElementById("notte").value;
+  let newstatus ='';
+
+  db_students[index].fullName = newFullName
+  db_students[index].groupy = newgroup
+  db_students[index].notte = newnotte
+
+
+
+
+  if (newnotte>= 10 && newnotte<= 12) {
+    newstatus = " PASS";
+  } else if (newnotte> 12 && newnotte<= 14) {
+    newstatus = "Good";
+  } else if (newnotte> 14 && newnotte<= 16) {
+    newstatus = "Average";
+  } else if (newnotte> 16 && newnotte<= 18) {
+    newstatus = "Very Good";
+  } else if (newnotte>= 18 && newnotte<= 20) {
+    newstatus = "Excellent ";
+  } else if (newnotte>= 0 && newnotte<= 10) {
+    newstatus = " Fail";
+  } else {
+    newstatus = "Invalid note entered";
+  }
+  db_students[index].status = newstatus
+
+  getStudents()
+
 }
 function deleteStudent(index) {
   db_students.splice(index, 1);
